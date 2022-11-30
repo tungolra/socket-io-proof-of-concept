@@ -2,9 +2,10 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import auth from "./routes/auth.js"
-// Routes
 
+// Routes
+import auth from "./routes/auth.js"
+import users from "./routes/users.js"
 const app = express();
 
 // Middlewares
@@ -20,10 +21,11 @@ mongoose
   })
   .then(() =>
     app.listen(process.env.PORT, () =>
-      console.log(`Listening to port ${process.env.PORT}`)
+      console.log(`Listening on port ${process.env.PORT}`)
     )
   )
   .catch((error) => console.log(error));
 
   // usage of routes
   app.use('/auth', auth)
+  app.use('/user', users)

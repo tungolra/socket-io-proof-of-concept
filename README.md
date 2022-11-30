@@ -33,21 +33,28 @@ setting up the server
     ** this is usually put in a config file within database.js! 
     //
 
-Authentication Route
 - create MVC folders
-    - routes: touch auth.js
-        - Add: 
-            import express from "express"
-            const router = express.Router()
-            router.get('/', async(req, res) => {res.send("Authentication Route")})
-            export default router
-    - index.js: 
-        - import auth route
-            import auth from "./routes/auth"
-        - set up routes:
-            app.use('/auth', auth)
-    - models: 
-        - set up userSchema
-    - controller
-        - set up function to register new user
-        - connect to route
+    - Authentication Route
+        - routes: touch auth.js
+            - Add: 
+                import express from "express"
+                const router = express.Router()
+                router.get('/', async(req, res) => {res.send("Authentication Route")})
+                export default router
+        - index.js: 
+            - import auth route
+                import auth from "./routes/auth"
+            - set up routes:
+                app.use('/auth', auth)
+    - User Model
+        - models: 
+            - set up userSchema
+    - Auth Controller (can check functionality with thunder client)
+        - controller
+            - set up function to register new user
+                - connect to route
+                - install/import bcrypt
+                - set SALT_ROUNDS var
+                - set hashpass var 
+            - set up login function
+            - set up update user function
