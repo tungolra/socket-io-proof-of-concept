@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logIn, signUp } from "../../actions/AuthAction";
 
 export default function Auth() {
   const initialState = {
@@ -8,52 +10,125 @@ export default function Auth() {
     password: "",
     confirmpass: "",
   };
+  const dispatch = useDispatch()
+  const loading = useSelector((state) => state.authReducer.loading);
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [data, setData] = useState(initialState);
+  console.log(loading)
+  const [confirmPass, setConfirmPass] = useState(true);
 
-  function SignUp() {
-    return (
-      <form>
-        <h3>Sign up</h3>
-        <div>
-          <input type="text" placeholder="First Name" name="firstname"></input>
-          <input type="text" placeholder="Last Name" name="lastname"></input>
-          <input type="text" placeholder="Username" name="username"></input>
-          <input type="text" placeholder="Password" name="password"></input>
-          <input
-            type="text"
-            placeholder="Confirm Password"
-            name="confirmpass"
-          ></input>
-        </div>
-        <div>
-            <span style={{fontSize: '12px'}}>Already have an account. Login!</span>
-        </div>
-        <button className="button infoButton" type="submit">Signup</button>
-      </form>
-    );
+  function handleChange(e) {
+    setData({ ...data, [e.target.name]: e.target.value });
   }
-  function LogIn() {
-    return (
-      <form>
-        <h3>Log In</h3>
-        <div>
-          <input type="text" placeholder="Username" name="username"></input>
-          <input type="text" placeholder="Password" name="password"></input>
-        </div>
-        <div>
-              <span style={{ fontSize: "12px" }}>
-                Don't have an account Sign up
-              </span>
-            <button className="button infoButton">Login</button>
-          </div>
-      </form>
-    );
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (isSignUp) {
+      // if (data.password === data.confirmpass) {
+      //   setConfirmPass(false);
+      // }
+      data.password === data.confirmpass ? dispatch(signUp(data)) : setConfirmPass(false)
+    } else {
+      dispatch(logIn(data))
+    }
+  }
+  function resetForm() {
+    setConfirmPass(true);
+    setData({
+      firstname: "",
+      lastname: "",
+      username: "",
+      password: "",
+      confirmpass: "",
+    });
   }
 
   return (
-    <div>
-      This is the Auth Page
-      <LogIn />
-      <SignUp />
-    </div>
+    <form onSubmit={handleSubmit}>
+      <h3>{isSignUp ? "Register" : "Login"}</h3>
+      {isSignUp && (
+        <div>
+          <input
+            required
+            type="text"
+            placeholder="First Name"
+            name="firstname"
+            value={data.firstname}
+            onChange={handleChange}
+          />
+          <input
+            required
+            type="text"
+            placeholder="Last Name"
+            name="lastname"
+            value={data.lastname}
+            onChange={handleChange}
+          />
+        </div>
+      )}
+
+      <div>
+        <input
+          required
+          type="text"
+          placeholder="Username"
+          name="username"
+          value={data.username}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <input
+          required
+          type="password"
+          placeholder="Password"
+          name="password"
+          value={data.password}
+          onChange={handleChange}
+        />
+        {isSignUp && (
+          <input
+            required
+            type="password"
+            name="confirmpass"
+            placeholder="Confirm Password"
+            onChange={handleChange}
+          />
+        )}
+      </div>
+
+      <span
+        style={{
+          color: "red",
+          fontSize: "12px",
+          alignSelf: "flex-end",
+          marginRight: "5px",
+          display: confirmPass ? "none" : "block",
+        }}
+      >
+        *Confirm password is not same
+      </span>
+      <div>
+        <span
+          style={{
+            fontSize: "12px",
+            cursor: "pointer",
+            textDecoration: "underline",
+          }}
+          onClick={() => {
+            resetForm();
+            setIsSignUp((prev) => !prev);
+          }}
+        >
+          {isSignUp
+            ? "Already have an account Login"
+            : "Don't have an account Sign up"}
+        </span>
+        <button
+          type="Submit"
+        >
+          {loading ? "Loading..." : isSignUp ? "SignUp" : "Login"}
+        </button>
+      </div>
+    </form>
   );
 }
