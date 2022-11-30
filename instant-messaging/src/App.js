@@ -25,6 +25,10 @@ function App() {
           path="/auth"
           element={user ? <Navigate to="../home" /> : <Auth />}
         />
+         {/* <Route
+          path="/profile/:id"
+          element={user ? <Profile /> : <Navigate to="../auth" />}
+        /> */}
       </Routes>
     </div>
   );
