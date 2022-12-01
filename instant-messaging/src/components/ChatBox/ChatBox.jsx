@@ -4,11 +4,22 @@ import { getUser } from "../../api/UserRequests";
 import { format } from "timeago.js";
 import InputEmoji from "react-input-emoji";
 
-export default function ChatBox({ chat, currentUserId }) {
+export default function ChatBox({
+  chat,
+  currentUserId,
+  setSendMessage,
+  receivedMessage,
+}) {
   const [userData, setUserData] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   console.log(messages);
+
+  useEffect(() => {
+    if (receivedMessage !== null && receivedMessage?.chatId == chat?._id) {
+      setMessages([...messages, receivedMessage]);
+    }
+  }, [receivedMessage]);
 
   //fetching data to render chatbox
   useEffect(() => {
@@ -49,10 +60,16 @@ export default function ChatBox({ chat, currentUserId }) {
     };
     try {
       const { data } = await addMessage(message);
-      setMessages([...messages, data])
-      setNewMessage("")
-    } catch (error) {}
+      setMessages([...messages, data]);
+      setNewMessage("");
+    } catch (error) {
+      console.log(error);
+    }
+    //send message to socket server
+    const receiverId = chat.members.find((id) => id !== currentUserId);
+    setSendMessage({ ...message }, receiverId);
   }
+
   return (
     <>
       <div className="chatbox-container">

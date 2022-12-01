@@ -25,6 +25,23 @@ io.on("connection", (socket) => {
     console.log("Connected Users", activeUsers);
     io.emit("get-users", activeUsers);
   });
+
+  //send message
+  socket.on ( "send-message", (data)=> { 
+    const {receiverId} = data; 
+
+    // if this is a user inside activeUser based 
+    const user = activeUsers.find((user) => user.userId === receiverId)
+    console.log("Sending ReceiverId")
+    console.log("Data: ", data)
+    //if user exists within a specific socket Id, then emit "receive-message" that 
+    //will be retrieved on client-side
+    if (user){ 
+        io.to(user.socketId).emit("receive-message", data)
+    }
+  })
+
+
   // if client disconnects
   socket.on("disconnect", () => {
     //from all the user, find the specific user trying to disconnect

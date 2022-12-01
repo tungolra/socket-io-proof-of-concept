@@ -14,16 +14,7 @@ export default function Chat() {
   const [currentChat, setCurrentChat] = useState(null);
   const [sendMessage, setSendMessage] = useState(null);
   const [receivedMessage, setReceivedMessage] = useState(null);
-
-  useEffect(() => {
-    socket.current = io("http://localhost:8800");
-    //to subscribe to specific event, we have to write emit
-    socket.current.emit("new-user-add", user._id);
-    socket.current.on("get-users", (users) => {
-      setOnlineUsers(users);
-      console.log(onlineUsers);
-    });
-  }, [user]);
+  //get chat in chat section
   useEffect(() => {
     const getChats = async () => {
       try {
@@ -35,7 +26,33 @@ export default function Chat() {
     };
     getChats();
   }, [user]);
+
+  //connect to Socket.io
+  useEffect(() => {
+    socket.current = io("http://localhost:8800");
+    //to subscribe to specific event, we have to write emit
+    socket.current.emit("new-user-add", user._id);
+    socket.current.on("get-users", (users) => {
+      setOnlineUsers(users);
+    });
+  }, [user]);
+
+  // send message to socket server
+  useEffect(() => {
+    if (sendMessage !== null) {
+      socket.current.emit("send-message", sendMessage);
+    }
+  }, [sendMessage]);
+
+  //receive message from socket server
+  useEffect(() => {
+    socket.current.on("receive-message", (data) => {
+      setReceivedMessage(data);
+    });
+  }, []);
+
   function checkOnlineStatus() {}
+
   return (
     <div>
       {/* Left Side */}
