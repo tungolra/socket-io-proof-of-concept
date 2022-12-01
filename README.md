@@ -1,3 +1,5 @@
+credits: [ZainRK](https://github.com/ZainRk/MERN-SocialMedia-ZAINKEEPSCODE/tree/master/server)
+
 backend server - installations
 - install express
 - install mongoose

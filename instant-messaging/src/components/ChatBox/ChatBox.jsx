@@ -84,10 +84,13 @@ export default function ChatBox({
                         ? "message own"
                         : "message"
                     }
+                    style={{border: "1px solid black"}}
                   >
+                    <span>{message.senderId === currentUserId ? "Ralph" : "Kendra"}</span>
                     <br />
                     <span>{message.text}</span>{" "}
-                    <span>{format(message.createdAt)}</span>
+                    <br/>
+                    <span>Sent {format(message.createdAt)}</span>
                   </div>
                 </>
               ))}
