@@ -29,7 +29,6 @@ io.on("connection", (socket) => {
   //send message
   socket.on ( "send-message", (data)=> { 
     const {receiverId} = data; 
-
     // if this is a user inside activeUser based 
     const user = activeUsers.find((user) => user.userId === receiverId)
     console.log("Sending ReceiverId")

@@ -67,7 +67,7 @@ export default function ChatBox({
     }
     //send message to socket server
     const receiverId = chat.members.find((id) => id !== currentUserId);
-    setSendMessage({ ...message }, receiverId);
+    setSendMessage({ ...message , receiverId});
   }
 
   return (
