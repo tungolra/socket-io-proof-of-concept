@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function ProfileCard() {
   const { user } = useSelector((state) => state.authReducer.authData);
@@ -8,9 +9,12 @@ export default function ProfileCard() {
   // const ProfileCard = false;
   return (
     <div>
-
       Profile Card Component
       <div>
+        <div>
+          LINKS
+          <Link to="../chat">Chat</Link>
+        </div>
         <img
           // src={
           //   user.coverPicture
@@ -20,7 +24,7 @@ export default function ProfileCard() {
           src=""
           alt="This is the Profile Cover Image"
         />
-        <br/>
+        <br />
         <img
           // src={
           //   user.profilePicture
@@ -32,8 +36,10 @@ export default function ProfileCard() {
         />
       </div>
       <div>
-        <span>Name: {user.firstname} {user.lastname}</span>
-        <br/>
+        <span>
+          Name: {user.firstname} {user.lastname}
+        </span>
+        <br />
         <span>username: {user.username}</span>
       </div>
     </div>

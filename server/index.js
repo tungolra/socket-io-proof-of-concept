@@ -7,8 +7,14 @@ import cors from 'cors'
 // Routes
 import auth from "./routes/auth.js"
 import users from "./routes/users.js"
+import chat from "./routes/chat.js"
+import messages from "./routes/messages.js"
+
 const app = express();
 
+//to serve images for public
+app.use(express.static('public'))
+app.use('./images', express.static('images'))
 // Middlewares
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
@@ -31,3 +37,5 @@ mongoose
   // usage of routes
   app.use('/auth', auth)
   app.use('/user', users)
+  app.use("/chat", chat)
+  app.use("/message", messages)
