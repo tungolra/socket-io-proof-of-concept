@@ -14,7 +14,6 @@ export default function Auth() {
   const loading = useSelector((state) => state.authReducer.loading);
   const [isSignUp, setIsSignUp] = useState(false);
   const [data, setData] = useState(initialState);
-  console.log(loading)
   const [confirmPass, setConfirmPass] = useState(true);
 
   function handleChange(e) {
