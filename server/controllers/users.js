@@ -27,7 +27,6 @@ export const updateUser = async (req, res) => {
       if (password) {
         const SALT_ROUNDS = await bcrypt.genSalt(10);
         req.body.password = await bcrypt.hash(password, SALT_ROUNDS);
-        // new: true -- i want to get the new information
       }
       const user = await UserModel.findByIdAndUpdate(id, req.body, {
         new: true,

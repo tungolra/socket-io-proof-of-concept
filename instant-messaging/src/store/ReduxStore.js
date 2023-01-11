@@ -1,4 +1,3 @@
-// code from docs
 // used to persist data in local storage
 
 import {

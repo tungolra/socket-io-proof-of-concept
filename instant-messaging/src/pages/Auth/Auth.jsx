@@ -10,7 +10,7 @@ export default function Auth() {
     password: "",
     confirmpass: "",
   };
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const loading = useSelector((state) => state.authReducer.loading);
   const [isSignUp, setIsSignUp] = useState(false);
   const [data, setData] = useState(initialState);
@@ -22,12 +22,11 @@ export default function Auth() {
   function handleSubmit(e) {
     e.preventDefault();
     if (isSignUp) {
-      // if (data.password === data.confirmpass) {
-      //   setConfirmPass(false);
-      // }
-      data.password === data.confirmpass ? dispatch(signUp(data)) : setConfirmPass(false)
+      data.password === data.confirmpass
+        ? dispatch(signUp(data))
+        : setConfirmPass(false);
     } else {
-      dispatch(logIn(data))
+      dispatch(logIn(data));
     }
   }
   function resetForm() {
@@ -122,9 +121,7 @@ export default function Auth() {
             ? "Already have an account Login"
             : "Don't have an account Sign up"}
         </span>
-        <button
-          type="Submit"
-        >
+        <button type="Submit">
           {loading ? "Loading..." : isSignUp ? "SignUp" : "Login"}
         </button>
       </div>

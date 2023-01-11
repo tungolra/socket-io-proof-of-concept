@@ -12,8 +12,6 @@ export default function InfoCard() {
   const dispatch = useDispatch();
   const params = useParams();
   const profileUserId = params.id;
-  console.log(params.id)
-  // console.log(user._id)
 
  
 

@@ -14,6 +14,7 @@ export default function Chat() {
   const [currentChat, setCurrentChat] = useState(null);
   const [sendMessage, setSendMessage] = useState(null);
   const [receivedMessage, setReceivedMessage] = useState(null);
+
   //get chat in chat section
   useEffect(() => {
     const getChats = async () => {
@@ -30,7 +31,6 @@ export default function Chat() {
   //connect to Socket.io
   useEffect(() => {
     socket.current = io("http://localhost:8800");
-    //to subscribe to specific event, we have to write emit
     socket.current.emit("new-user-add", user._id);
     socket.current.on("get-users", (users) => {
       setOnlineUsers(users);

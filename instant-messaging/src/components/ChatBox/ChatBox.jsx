@@ -67,7 +67,7 @@ export default function ChatBox({
     }
     //send message to socket server
     const receiverId = chat.members.find((id) => id !== currentUserId);
-    setSendMessage({ ...message , receiverId});
+    setSendMessage({ ...message, receiverId });
   }
 
   return (
@@ -84,12 +84,13 @@ export default function ChatBox({
                         ? "message own"
                         : "message"
                     }
-                    style={{border: "1px solid black"}}
+                    style={{ border: "1px solid black" }}
                   >
-                    <span>{message.senderId === currentUserId ? "Ralph" : "Kendra"}</span>
+                    <span>
+                      {message.senderId === currentUserId ? "Ralph" : "Kendra"}
+                    </span>
                     <br />
-                    <span>{message.text}</span>{" "}
-                    <br/>
+                    <span>{message.text}</span> <br />
                     <span>Sent {format(message.createdAt)}</span>
                   </div>
                 </>

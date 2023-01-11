@@ -9,9 +9,6 @@ function App() {
   const user = useSelector((state) => state.authReducer.authData);
   return (
     <div className="App">
-      {/* <Home/> */}
-      {/* <Profile /> */}
-      {/* <Auth /> */}
       <Routes>
         <Route
           path="/"

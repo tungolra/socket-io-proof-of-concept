@@ -13,11 +13,11 @@ const authReducer = (
     case "AUTH_START":
       return { ...state, loading: true, error: false };
     case "AUTH_SUCCESS":
-        // data sent by our authentication action after a successful endpoint
-        //...action?: if data is avble then it will be stored in our local storage
+      // data sent by our authentication action after a successful endpoint
+      //...action?: if data is avble then it will be stored in our local storage
       localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
-    // if success, loading is no longer true and there is no errors
-    return { ...state, authData: action.data, loading: false, error: false };
+      // if success, loading is no longer true and there is no errors
+      return { ...state, authData: action.data, loading: false, error: false };
     // if fail, loading is no longer true and there are errors
     case "AUTH_FAIL":
       return { ...state, loading: false, error: true };
@@ -44,10 +44,10 @@ const authReducer = (
         error: false,
         updateLoading: false,
       };
-// by default it will return default state (authReducer parameter)
+    // by default it will return default state (authReducer parameter)
     default:
       return state;
   }
 };
 
-export default authReducer
+export default authReducer;

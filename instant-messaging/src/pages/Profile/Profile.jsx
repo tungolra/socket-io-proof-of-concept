@@ -6,7 +6,7 @@ export default function Profile() {
   return (
     <div>
       <ProfileCard />
-      <InfoCard/>
+      <InfoCard />
     </div>
   );
 }
